@@ -1,20 +1,20 @@
 <template>
   <div>
-    <v-carousel hide-delimiters cycle interval="2000">
-      <v-carousel-item v-for="(image,i) in images" :key="i" :src="image.pathLong">
-      </v-carousel-item>
-    </v-carousel>
-    <v-container fluid grid-list-md>
-      <!-- xs = 600px full screen (12) -->
-      <!-- md = 600px or more. half of the screen (6) -->
-      <v-layout row wrap>
-        <v-flex xs12 md3 v-for="image in images">
-          <v-card>
-            <v-img :src="image.pathLong" height="200px" contain></v-img>
-          </v-card>
-        </v-flex>
-      </v-layout>
+    <v-container >
+      <masonry-wall :items="images" :ssr-columns="1" :column-width="300" :gap="16">
+        <template #default="{ item, index }">
+          <img class="gallery-item" :src="item.pathLong" @click="selectImage(item)"></img>
+        </template>
+      </masonry-wall>
     </v-container>
+    <v-dialog v-model="dialog" overlay-opacity="0.9" >
+        <v-btn class="dialog-close" icon @click="dialog = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-img @click="closeDialog" class="full" :src="selectedImage.pathLong" contain> </v-img>
+
+    </v-dialog>
+
   </div>
 </template>
 
@@ -31,6 +31,8 @@ export default {
   data() {
     return {
       images: [],
+      selectedImage: {},
+      dialog: false
     };
   },
 
@@ -40,6 +42,13 @@ export default {
   },
 
   methods: {
+    selectImage(image) {
+      this.selectedImage = image;
+      this.dialog = true;
+    },
+    closeDialog(e) {
+
+    },
     importAll(r) {
       r.keys().filter(s => s.includes(`${this.category}/`)).forEach(key => (this.images.push({ pathLong: r(key), pathShort: key })));
     },
@@ -47,3 +56,24 @@ export default {
 }
 
 </script>
+
+<style>
+img.gallery-item {
+  max-height: 500px;
+  max-width: 300px;
+  height: auto;
+  width: auto;
+}
+
+.full {
+  max-height: 80vh;
+}
+
+.v-dialog {
+  box-shadow: none;
+}
+
+.dialog-close {
+  float: right;
+}
+</style>

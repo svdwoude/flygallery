@@ -88,6 +88,3 @@ sw.*
 
 # Vim swap files
 *.swp
-
-# ignore images (for now)
-**/*.jpeg
