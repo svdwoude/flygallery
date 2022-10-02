@@ -11,7 +11,7 @@
         <v-btn class="dialog-close" float-right icon @click="dialog = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <v-carousel v-model="selectedImageIndex" height="90vh" hide-delimiters>
+        <v-carousel v-model="selectedImageIndex" height="85vh" hide-delimiters>
           <v-carousel-item contain v-for="(image,i) in images" :key="i" :src="image.pathLong">
           </v-carousel-item>
         </v-carousel>
