@@ -3,16 +3,18 @@
     <v-container >
       <masonry-wall :items="images" :ssr-columns="1" :column-width="300" :gap="16">
         <template #default="{ item, index }">
-          <img class="gallery-item" :src="item.pathLong" @click="selectImage(item)"></img>
+          <img class="gallery-item" :src="item.pathLong" @click="selectImage(index)"></img>
         </template>
       </masonry-wall>
     </v-container>
     <v-dialog v-model="dialog" overlay-opacity="0.9" >
-        <v-btn class="dialog-close" icon @click="dialog = false">
+        <v-btn class="dialog-close" float-right icon @click="dialog = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <v-img @click="closeDialog" class="full" :src="selectedImage.pathLong" contain> </v-img>
-
+        <v-carousel v-model="selectedImageIndex" height="90vh" hide-delimiters>
+          <v-carousel-item contain v-for="(image,i) in images" :key="i" :src="image.pathLong">
+          </v-carousel-item>
+        </v-carousel>
     </v-dialog>
 
   </div>
@@ -32,6 +34,7 @@ export default {
     return {
       images: [],
       selectedImage: {},
+      selectedImageIndex: 0,
       dialog: false
     };
   },
@@ -40,10 +43,14 @@ export default {
     const files = require.context(`../assets/img/`, true, /\.jpeg$/)
     this.importAll(files);
   },
-
+  computed: {
+    selectedImage() {
+      return this.images[this.selectedImageIndex]
+    }
+  },
   methods: {
-    selectImage(image) {
-      this.selectedImage = image;
+    selectImage(index) {
+      this.selectedImageIndex = index
       this.dialog = true;
     },
     closeDialog(e) {
