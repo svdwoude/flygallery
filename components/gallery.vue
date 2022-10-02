@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container >
-      <masonry-wall :items="images" :ssr-columns="1" :column-width="300" :gap="16">
+      <masonry-wall :items="images" :column-width="200" :gap="16">
         <template #default="{ item, index }">
           <img class="gallery-item" :src="item.pathLong" @click="selectImage(index)"></img>
         </template>
@@ -67,7 +67,7 @@ export default {
 <style>
 img.gallery-item {
   max-height: 500px;
-  max-width: 300px;
+  max-width: 200px;
   height: auto;
   width: auto;
 }
