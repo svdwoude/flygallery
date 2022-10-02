@@ -14,7 +14,7 @@
             <img id="logo" src="~/assets/img/logo_full.png"/>
           </v-list-tile-avatar>
         </v-list-tile>
-        <v-list-item
+        <v-list-item class="sidebar-item"
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
@@ -93,17 +93,12 @@ export default {
           icon: 'mdi-door-open',
           title: 'Vliegendeuren',
           to: '/vldr'
-        },
-        {
-          icon: 'mdi-movie',
-          title: 'Inspire',
-          to: '/inspire'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Blader door onze catalogus'
+      title: 'Blader door ons fotoalbum'
     }
   }
 }
@@ -112,5 +107,10 @@ export default {
 <style>
 #logo {
   max-width: 265px;
+}
+
+.sidebar-item {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 </style>
