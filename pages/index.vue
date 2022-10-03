@@ -1,12 +1,14 @@
 <template>
-<div>
-  <category title="Deurplissé"></category>
-</div>
+  <div>
+    <category title="Klassieke Vliegenramen"></category>
+  </div>
+
 </template>
 
 <script>
+import Category from '../components/category.vue'
 export default {
-  name: 'deurplisse'
+  name: 'Cat2'
 }
-
-</script>
+</
+    Categoryscript>

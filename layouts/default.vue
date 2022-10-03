@@ -22,7 +22,8 @@
           exact
         >
           <v-list-item-action>
-            <v-icon color="#8b0e3a">{{ item.icon }}</v-icon>
+            <!-- <v-icon color="#8b0e3a">{{ item.icon }}</v-icon> -->
+            <img class="menu-logo" src="~/assets/img/logo_red.png"></img>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
@@ -64,25 +65,16 @@ export default {
       drawer: false,
       fixed: false,
       items: [
-        {
-          icon: 'mdi-door',
-          title: 'Deurplissé',
-          to: '/'
-        },
+
         {
           icon: 'mdi-crop-square',
           title: 'Klassieke Vliegenramen',
-          to: '/klvl'
+          to: '/'
         },
         {
-          icon: 'mdi-window-closed-variant',
-          title: 'Raamplissé',
-          to: '/rmpl'
-        },
-        {
-          icon: 'mdi-script-outline',
-          title: 'Rolplissé',
-          to: '/rlpl'
+          icon: 'mdi-door-open',
+          title: 'Vliegendeuren',
+          to: '/vldr'
         },
         {
           icon: 'mdi-gesture-swipe-right',
@@ -90,10 +82,22 @@ export default {
           to: '/sfvl'
         },
         {
-          icon: 'mdi-door-open',
-          title: 'Vliegendeuren',
-          to: '/vldr'
-        }
+          icon: 'mdi-window-closed-variant',
+          title: 'Raamplissé',
+          to: '/rmpl'
+        },
+        {
+          icon: 'mdi-door',
+          title: 'Deurplissé',
+          to: '/drpl'
+        },
+        {
+          icon: 'mdi-script-outline',
+          title: 'Rolplissé',
+          to: '/rlpl'
+        },
+
+
       ],
       miniVariant: false,
       right: true,
@@ -112,5 +116,10 @@ export default {
 .sidebar-item {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.menu-logo {
+  max-width: 25px;
+  max-height: 25px;
 }
 </style>
