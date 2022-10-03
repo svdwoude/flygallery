@@ -33,7 +33,6 @@ export default {
   data() {
     return {
       images: [],
-      selectedImage: {},
       selectedImageIndex: 0,
       dialog: false
     };
