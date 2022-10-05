@@ -8,13 +8,21 @@
       </masonry-wall>
     </v-container>
     <v-dialog v-model="dialog" overlay-opacity="0.9" >
-        <v-btn class="dialog-close" float-right icon @click="dialog = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <v-carousel v-model="selectedImageIndex" height="85vh" hide-delimiters>
-          <v-carousel-item contain v-for="(image,i) in images" :key="i" :src="image.pathLong">
-          </v-carousel-item>
-        </v-carousel>
+        <div>
+          <v-btn class="dialog-close" icon @click="dialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </div>
+        <div class="carousel-container">
+          <!-- <v-carousel v-model="selectedImageIndex" height="85vh" hide-delimiters>
+            <v-carousel-item contain v-for="(image,i) in images" :key="i" :src="image.pathLong">
+            </v-carousel-item>
+          </v-carousel> -->
+          <vueper-slides slide-image-inside :bullets="false" fixedHeight="85vh">
+            <vueper-slide v-for="(slide, i) in images" :key="i" :title="slide.title" :image="slide.pathLong">
+            </vueper-slide>
+          </vueper-slides>
+        </div>
     </v-dialog>
 
   </div>
@@ -22,12 +30,16 @@
 
 <script>
 import VueGridLayout from 'vue-grid-layout';
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: 'gallery',
   components: {
     GridLayout: VueGridLayout.GridLayout,
-    GridItem: VueGridLayout.GridItem
+    GridItem: VueGridLayout.GridItem,
+    VueperSlides,
+    VueperSlide,
   },
   props: ['category'],
   data() {
@@ -80,6 +92,17 @@ img.gallery-item {
 }
 
 .dialog-close {
-  float: right;
+  position: absolute;
+    right: 0px;
+    top: 60px;
+}
+
+.vueperslides:not(.no-shadow):not(.vueperslides--3d) .vueperslides__parallax-wrapper:after,
+.vueperslides:not(.no-shadow):not(.vueperslides--3d) .vueperslides__parallax-wrapper:before {
+  box-shadow: none !important;
+}
+
+.vueperslide__image {
+  background-size: contain;
 }
 </style>
