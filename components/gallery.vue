@@ -8,11 +8,6 @@
       </masonry-wall>
     </v-container>
     <v-dialog v-model="dialog" overlay-opacity="0.9" >
-        <div>
-          <v-btn class="dialog-close" icon @click="dialog = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </div>
         <div class="carousel-container">
           <vueper-slides v-if="dialog" :initSlide="selectedImageIndex + 1" :dragging-distance="50" ref="myVueperSlides" slide-image-inside :bullets="false" fixedHeight="85vh">
             <vueper-slide v-for="(slide, i) in images" :key="i" :title="slide.title" :image="slide.pathLong">
@@ -79,18 +74,9 @@ img.gallery-item {
   width: auto;
 }
 
-.full {
-  max-height: 80vh;
-}
 
 .v-dialog {
   box-shadow: none;
-}
-
-.dialog-close {
-  position: absolute;
-    right: 0px;
-    top: 60px;
 }
 
 .vueperslides:not(.no-shadow):not(.vueperslides--3d) .vueperslides__parallax-wrapper:after,
