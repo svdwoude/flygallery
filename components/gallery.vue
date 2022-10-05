@@ -14,11 +14,7 @@
           </v-btn>
         </div>
         <div class="carousel-container">
-          <!-- <v-carousel v-model="selectedImageIndex" height="85vh" hide-delimiters>
-            <v-carousel-item contain v-for="(image,i) in images" :key="i" :src="image.pathLong">
-            </v-carousel-item>
-          </v-carousel> -->
-          <vueper-slides slide-image-inside :bullets="false" fixedHeight="85vh">
+          <vueper-slides v-if="dialog" :initSlide="selectedImageIndex + 1" :dragging-distance="50" ref="myVueperSlides" slide-image-inside :bullets="false" fixedHeight="85vh">
             <vueper-slide v-for="(slide, i) in images" :key="i" :title="slide.title" :image="slide.pathLong">
             </vueper-slide>
           </vueper-slides>
