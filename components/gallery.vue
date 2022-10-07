@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id=" ">
     <v-container >
       <masonry-wall :items="images" :column-width="200" :gap="16">
         <template #default="{ item, index }">
@@ -89,6 +89,10 @@ img.gallery-item {
 .vueperslides:not(.no-shadow):not(.vueperslides--3d) .vueperslides__parallax-wrapper:after,
 .vueperslides:not(.no-shadow):not(.vueperslides--3d) .vueperslides__parallax-wrapper:before {
   box-shadow: none !important;
+}
+
+.vueperslides--touchable .vueperslides__track {
+  cursor: none !important;
 }
 
 .vueperslide__image {

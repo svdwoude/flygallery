@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="app">
     <v-navigation-drawer
       v-model="drawer"
       permanent
@@ -190,5 +190,17 @@ export default {
 .menu-logo {
   max-width: 25px;
   max-height: 25px;
+}
+
+#container {
+  cursor: none !important;
+}
+
+#app {
+  cursor: none !important;
+}
+
+.v-application a {
+  cursor: none !important;
 }
 </style>
