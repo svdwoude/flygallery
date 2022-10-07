@@ -64,6 +64,7 @@ export default {
   methods: {
     mousedownHandler(e) {
       const ele = document.getElementById('container');
+      let move = false;
       const pos = {
         // The current scroll
         top: window.scrollY,
@@ -76,33 +77,53 @@ export default {
       if (e.stopPropagation) e.stopPropagation();
 
 
-      const mouseUpHandler = function() {
-        ele.removeEventListener('mousemove', mouseMoveHandler);
-        ele.removeEventListener('mouseup', mouseUpHandler);
+      const mouseUpHandler = function(e) {
+        console.log("mouse up")
+        document.removeEventListener('mousemove', mouseMoveHandler);
+        document.removeEventListener('mouseup', mouseUpHandler);
 
         ele.style.cursor = 'default';
         ele.style.removeProperty('user-select');
+        if(move) {
+          console.log("registered move, prevent propagation")
+          e.stopImmediatePropagation();
+        }
       };
       const mouseMoveHandler = function(e) {
-        console.log('mouse move', e)
         if (document.selection) {
-          console.log("remove selection")
           document.selection.empty()
         } else {
-          console.log("remove  all ranges")
           window.getSelection().removeAllRanges()
         }
 
 
         // How far the mouse has been moved
         const dy = e.clientY - pos.y;
-
+        if(Math.abs(dy) > 5) {
+          move = true;
+          ele.setAttribute("moving", "yes")
+        }
         // Scroll the element
         window.scrollTo(0, pos.top - dy);
-        console.log(`scrollTo ${window.scrollY}`)
       };
-      ele.addEventListener('mousemove', mouseMoveHandler);
-      ele.addEventListener('mouseup', mouseUpHandler);
+
+      const preventDrag = function(e) {
+        e.preventDefault()
+        return false
+      };
+
+      const preventClick = function(e) {
+        console.log("click")
+        if(move) {
+          ele.setAttribute("moving", "no")
+          e.stopImmediatePropagation();
+          console.log("we should reset the move!")
+        }
+      }
+      document.addEventListener('mousemove', mouseMoveHandler);
+      document.addEventListener('mouseup', mouseUpHandler);
+      document.addEventListener('dragstart', preventDrag);
+      document.addEventListener('click', preventClick);
 
     },
 

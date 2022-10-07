@@ -53,8 +53,14 @@ export default {
   },
   methods: {
     selectImage(index) {
-      this.selectedImageIndex = index
-      this.dialog = true;
+      const ele = document.getElementById('container');
+      const move = ele.getAttribute("moving")
+
+      if(move !== "yes") {
+        console.log("selecting image")
+        this.selectedImageIndex = index
+        this.dialog = true;
+      }
     },
     closeDialog(e) {
 
