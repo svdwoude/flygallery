@@ -44,6 +44,7 @@ export default {
   mounted() {
     const files = require.context(`../assets/img/`, true, /\.jpeg$/)
     this.importAll(files);
+
   },
   computed: {
     selectedImage() {

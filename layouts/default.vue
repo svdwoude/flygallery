@@ -48,17 +48,65 @@
       <v-spacer />
 
     </v-app-bar>
-    <v-main>
-      <v-container>
-        <Nuxt />
-      </v-container>
-    </v-main>
+    <div ref="scrollContainer" id="container" @mousedown="mousedownHandler">
+      <v-main>
+        <v-container >
+          <Nuxt />
+        </v-container>
+      </v-main>
+    </div>
   </v-app>
 </template>
 
 <script>
 export default {
   name: 'DefaultLayout',
+  methods: {
+    mousedownHandler(e) {
+      const ele = document.getElementById('container');
+      const pos = {
+        // The current scroll
+        top: window.scrollY,
+        // Get the current mouse position
+        y: e.clientY,
+      };
+      ele.style.scrollBehavior = 'auto';
+      ele.style.cursor = 'grab';
+      e.cancelBubble = true;
+      if (e.stopPropagation) e.stopPropagation();
+
+
+      const mouseUpHandler = function() {
+        ele.removeEventListener('mousemove', mouseMoveHandler);
+        ele.removeEventListener('mouseup', mouseUpHandler);
+
+        ele.style.cursor = 'default';
+        ele.style.removeProperty('user-select');
+      };
+      const mouseMoveHandler = function(e) {
+        console.log('mouse move', e)
+        if (document.selection) {
+          console.log("remove selection")
+          document.selection.empty()
+        } else {
+          console.log("remove  all ranges")
+          window.getSelection().removeAllRanges()
+        }
+
+
+        // How far the mouse has been moved
+        const dy = e.clientY - pos.y;
+
+        // Scroll the element
+        window.scrollTo(0, pos.top - dy);
+        console.log(`scrollTo ${window.scrollY}`)
+      };
+      ele.addEventListener('mousemove', mouseMoveHandler);
+      ele.addEventListener('mouseup', mouseUpHandler);
+
+    },
+
+  },
   data () {
     return {
       clipped: false,
